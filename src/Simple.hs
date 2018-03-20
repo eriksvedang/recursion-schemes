@@ -8,7 +8,7 @@ ex1 = Branch (Leaf 10) (Branch (Branch (Leaf 20) (Leaf 30)) (Leaf 40))
 
 visit :: (Tree -> Tree) -> Tree -> Tree
 visit f (Leaf x) = f (Leaf x)
-visit f (Branch a b) = (Branch (visit f a) (visit f b))
+visit f (Branch a b) = Branch (visit f a) (visit f b)
 
 incAll :: Tree -> Tree
 incAll (Leaf x) = Leaf (x + 1)
