@@ -33,6 +33,12 @@ ex4 = Fx (Branch (Fx $ Leaf 1) (Fx $ Leaf 2))
 ex5 :: Tree
 ex5 = Fx (Leaf 1000)
 
+-- | Can make it nicer with helper functions
+leaf x = Fx (Leaf x)
+branch a b = Fx (Branch a b)
+
+ex6 = branch (branch (leaf 10) (leaf 20)) (leaf 30)
+
 -- | An algebra and a catamorphism function:
 type Algebra f a = f a -> a
 cata :: Functor f => Algebra f a -> Fix f -> a
@@ -42,3 +48,11 @@ total :: Tree -> Int
 total = cata phi where
   phi (Leaf x) = x
   phi (Branch a b) = a + b
+
+nodeCount :: Tree -> Int
+nodeCount = cata phi where
+  phi (Leaf _) = 1
+  phi (Branch a b) = 1 + a + b
+
+-- | Now just use it like so:
+answer = total ex6
