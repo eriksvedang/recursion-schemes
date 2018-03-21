@@ -7,8 +7,8 @@ data Tree = Leaf Int
 ex1 = Branch (Leaf 10) (Branch (Branch (Leaf 20) (Leaf 30)) (Leaf 40))
 
 visit :: (Tree -> Tree) -> Tree -> Tree
-visit f (Leaf x) = f (Leaf x)
-visit f (Branch a b) = Branch (visit f a) (visit f b)
+visit _ (Leaf x) = Leaf x
+visit f (Branch a b) = Branch (f a) (f b)
 
 incAll :: Tree -> Tree
 incAll (Leaf x) = Leaf (x + 1)
@@ -32,8 +32,8 @@ data Tree2 = Leaf2 Int
 ex2 = Branch2 (Leaf2 10) (Branch2 (Branch2 (Leaf2 20) (Leaf2 30)) (BigBranch2 [Leaf2 40, Leaf2 50, Leaf2 60]))
 
 visit2 :: (Tree2 -> Tree2) -> Tree2 -> Tree2
-visit2 f (Leaf2 x) = f (Leaf2 x)
-visit2 f (Branch2 a b) = Branch2 (visit2 f a) (visit2 f b)
+visit2 _ (Leaf2 x) = Leaf2 x
+visit2 f (Branch2 a b) = Branch2 (f a) (f b)
 visit2 f (BigBranch2 xs) = BigBranch2 (map f xs) -- ...only need to handle it here, not below!
 
 incAll2 :: Tree2 -> Tree2
